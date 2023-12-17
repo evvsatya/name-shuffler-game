@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Shuffler Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #output {
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Name Shuffler Game</h1>
+
+    <label for="inputName">Enter your name:</label>
+    <input type="text" id="inputName" placeholder="Your Name">
+
+    <button onclick="shuffleName()">Shuffle Name</button>
+
+    <div id="output"></div>
+
+    <script>
+        let usedNames = [];
+        let availableNames = ['Ali', 'Aju', 'EVV', 'PAVI', 'PRIYA', 'RAVI','SREE']; // Add more names as needed
+
+        function shuffleName() {
+            const inputName = document.getElementById("inputName").value.trim();
+            const outputDiv = document.getElementById("output");
+
+            if (inputName === "") {
+                alert("Please enter a valid name.");
+                return;
+            }
+
+            if (usedNames.length === availableNames.length) {
+                alert("All names have been used. Game over!");
+                return;
+            }
+
+            let shuffledName = getRandomUnusedName();
+
+            usedNames.push(shuffledName);
+
+            outputDiv.innerHTML = `<p>Your unique shuffled name: <strong>${shuffledName}</strong></p>`;
+        }
+
+        function getRandomUnusedName() {
+            let remainingNames = availableNames.filter(name => !usedNames.includes(name));
+
+            if (remainingNames.length === 0) {
+                return "All names used";
+            }
+
+            const randomIndex = Math.floor(Math.random() * remainingNames.length);
+            return remainingNames[randomIndex];
+        }
+    </script>
+</body>
+</html>
